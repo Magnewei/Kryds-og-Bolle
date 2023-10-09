@@ -5,17 +5,16 @@ import java.util.List;
 public class Board {
 
 
-
-    public static void gamePlay(char[][] grid, int placement, String user) {
+    public void gamePlay(char[][] grid, int placement, String user) {
         char symbol = 'X';
 
         if (user.equals("player")) {
             symbol = 'X';
-            playerPosition.add(placement);
+            Main.playerPosition.add(placement);
 
         } else if (user.equals("npc")) {
             symbol = '0';
-            npcPosition.add(placement);
+            Main.npcPosition.add(placement);
         }
 
         switch (placement) {
@@ -60,7 +59,7 @@ public class Board {
 
     }
 
-    public static String checkWinner() {
+    public  String checkWinner() {
 
         // Magic square = ((8, 1, 6), (3, 5, 7), (4, 9, 2))
         // All the columns/rows are ordered in a magic square,
@@ -88,11 +87,11 @@ public class Board {
         winning.add(cross2);
 
         for (List l : winning) {
-            if (playerPosition.containsAll(l)) {
+            if (Main.playerPosition.containsAll(l)) {
                 return "You won!";
-            } else if (npcPosition.containsAll(l)) {
+            } else if (Main.npcPosition.containsAll(l)) {
                 return "NPC wins!";
-            } else if (playerPosition.size() + npcPosition.size() == 9) {
+            } else if (Main.playerPosition.size() + Main.npcPosition.size() == 9) {
                 return "Tie!";
             }
         }
@@ -100,7 +99,7 @@ public class Board {
     }
 
     // Draws the grid when called.
-    public static void printGrid(char[][] grid) {
+    public void printGrid(char[][] grid) {
 
         //Draw grid in for loop.
         for (char[] row : grid) {

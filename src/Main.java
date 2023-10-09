@@ -10,6 +10,10 @@ import java.io.InputStreamReader;
 
 class Main {
 
+
+    //Our board and player objects and arraylists where we keep track of the player and npc moves.
+    static Board board = new Board();
+    static Player player = new Player(playerName, playerFileWins, playerTotalGames);
     static ArrayList<Integer> playerPosition = new ArrayList<Integer>();
     static ArrayList<Integer> npcPosition = new ArrayList<Integer>();
 
@@ -24,7 +28,13 @@ class Main {
         ArrayList<Integer> winning = new ArrayList<Integer>();
 
 
+        String playerFileName = "";
+        int playerFileWins = 0;
+        int playerTotalGames = 0;
+
+
         while (true) {
+
             Scanner scan = new Scanner(System.in);
             System.out.println("Choose a placement: ");
             int playerPlacement = scan.nextInt();
@@ -34,7 +44,7 @@ class Main {
                 playerPlacement = scan.nextInt();
             }
 
-            gamePlay(grid, playerPlacement, "player");
+            board.gamePlay(grid, playerPlacement, "player");
 
             String result = Board.checkWinner();
 
@@ -45,10 +55,10 @@ class Main {
                 npcPlacement = scan.nextInt();
 
             }
-            gamePlay(grid, npcPlacement, "npc");
-            printGrid(grid);
+            board.gamePlay(grid, npcPlacement, "npc");
+            board.printGrid(grid);
 
-            result = checkWinner();
+            result = board.checkWinner();
             if (result.length() > 0) {
                 System.out.println(result);
                 break;

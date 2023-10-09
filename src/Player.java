@@ -9,10 +9,9 @@ public class Player {
     // Variables are declared as static, as there will only be one player at a time,
     // and therefore both the methods and variables effectively belong to the player class.
 
-    public static int gamesWon;
-    public static String playerName;
-    public static int gameWins;
-    public static int totalGames;
+    private String playerName;
+    private int gameWins;
+    private int totalGames;
 
 
     Player(String playerName, int gameWins, int totalGames) {
@@ -23,10 +22,10 @@ public class Player {
 
 
     //Used for introducing the player and their save, on game start/restart.
-    public static String greetPlayer() {
+    public String greetPlayer() {
         int winLossRatio = gameWins / totalGames;   //Calculates the player win loss ratio.
 
-        return "Player: " + Player.playerName +
+        return "Player: " + playerName +
                 " played a total amount of games " + totalGames +
                 "with a win ratio of: " + winLossRatio + "% .";
     }
@@ -34,7 +33,7 @@ public class Player {
 
     // Writes the player save file.
     // Returns the username when file has been written successfully.
-    public static String editGameSave(String userName) {
+    public String editGameSave(String userName) throws IOException {
         String gameSaveFile = "src/GameSave.txt";
 
         try {
@@ -54,7 +53,7 @@ public class Player {
 
     // Asks the player whether they have a save.
     // If yes, looks for the save. If no, asks whether they wish to create one.
-    public static void doesGameSaveExist() throws FileNotFoundException {
+    public void doesGameSaveExist() throws FileNotFoundException {
         String gameSaveFile = "src/GameSave.txt";
 
         // Instantiating scanner to find user in gameSave.
@@ -83,7 +82,7 @@ public class Player {
 
                     // Checks if the line in GameSave contains the username we're given in searchText.
                     if (answer.contains(searchText)) {
-                        Player.greetPlayer();
+                        greetPlayer();
 
                         // If a user couldn't be found.
                     } else {
@@ -104,8 +103,5 @@ public class Player {
             }
         }
     }
-
-
-
 }
 
