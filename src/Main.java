@@ -1,36 +1,37 @@
+import java.io.FileNotFoundException;
 import java.util.*;
 
-import java.io.FileWriter;
-import java.io.FileNotFoundException;
-import java.io.File;
-import java.io.IOException;
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
+
+/*
+Some variables and functions may not have been implemented, as I intend to continue building on the project.
+ */
 
 
 class Main {
 
-
     //Our board and player objects and arraylists where we keep track of the player and npc moves.
     static Board board = new Board();
-    static Player player = new Player(playerName, playerFileWins, playerTotalGames);
+    static Player player = new Player("Magnus", 18, 26);
     static ArrayList<Integer> playerPosition = new ArrayList<Integer>();
     static ArrayList<Integer> npcPosition = new ArrayList<Integer>();
+    static char[][] grid = {{' ', '|', ' ', '|', ' '},
+            {'-', '+', '-', '+', '-'},
+            {' ', '|', ' ', '|', ' '},
+            {'-', '+', '-', '+', '-'},
+            {' ', '|', ' ', '|', ' '}};
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws FileNotFoundException {
 
-        char[][] grid = {{' ', '|', ' ', '|', ' '},
-                {'-', '+', '-', '+', '-'},
-                {' ', '|', ' ', '|', ' '},
-                {'-', '+', '-', '+', '-'},
-                {' ', '|', ' ', '|', ' '}};
+        String playerFileName = ""; //Loading name of the player in file.
+        int playerFileWins = 0;  // Loading the player wins.
+        int playerTotalGames = 0;  //Loading the player games.
 
-        ArrayList<Integer> winning = new ArrayList<Integer>();
+        //  player.doesGameSaveExist();  Loads the player game save.
 
+        System.out.println("The goal of the game is to get a row of your designated symbol. The player is always playing as X while the NPC is 0");
+        System.out.println("You place your symbol by writing a number from 1-9, where 1 is the top left and 9 is the bottom right. The grid looks like this:");
+        board.printGrid(grid);
 
-        String playerFileName = "";
-        int playerFileWins = 0;
-        int playerTotalGames = 0;
 
 
         while (true) {
@@ -46,49 +47,26 @@ class Main {
 
             board.gamePlay(grid, playerPlacement, "player");
 
-            String result = Board.checkWinner();
+            String result;
 
             Random rand = new Random();
             int npcPlacement = rand.nextInt(9) + 1;
-            while (playerPosition.contains(playerPlacement) || npcPosition.contains(npcPosition)) {
+            while (playerPosition.contains(npcPlacement) || npcPosition.contains(npcPosition)) {
                 System.out.println("Position taken.");
-                npcPlacement = scan.nextInt();
+                npcPlacement = rand.nextInt(9) + 1;
 
             }
             board.gamePlay(grid, npcPlacement, "npc");
-            board.printGrid(grid);
+            System.out.println(" ");  //Creating a line between grids.
 
+            //Checks if there's a winner.
+            // Prints the winner as soon as the returned string from checkWinner() is 0> and break; from the game.
             result = board.checkWinner();
             if (result.length() > 0) {
                 System.out.println(result);
                 break;
 
             }
-        }
-    }
-
-
-    public static void introduceGame() {
-
-        // Instantiates the scanner terminal input.
-        Scanner scanner = new Scanner(System.in);
-        System.out.println(" Are you ready to play? \n Yes / No");
-        String answer = scanner.nextLine();
-
-        // Checks if the answer is "yes". Ignores case.
-        if (answer.equalsIgnoreCase("Yes")) {
-            System.out.println("The game will show you three lines of squares, where each square represents a field in which you can place your brick.");
-            System.out.println("To place your brick, write the number of one of the given fields.");
-
-
-            // Checks if no. If answer equals no, then exit the game.
-        } else if (answer.equalsIgnoreCase("No")) {
-            System.out.println("The game will now exit.");
-            System.exit(0);
-
-            //Catches wrong input.
-        } else {
-            System.out.println("It seems like you mistyped. Please answer either yes or no.");
         }
     }
 }

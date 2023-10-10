@@ -9,9 +9,11 @@ public class Player {
     // Variables are declared as static, as there will only be one player at a time,
     // and therefore both the methods and variables effectively belong to the player class.
 
-    private String playerName;
-    private int gameWins;
-    private int totalGames;
+    private static String playerName;
+    private static int gameWins;
+    private static int totalGames;
+
+    static String gameSaveFile = "src/GameSave.txt";
 
 
     Player(String playerName, int gameWins, int totalGames) {
@@ -22,7 +24,7 @@ public class Player {
 
 
     //Used for introducing the player and their save, on game start/restart.
-    public String greetPlayer() {
+    public static String greetPlayer() {
         int winLossRatio = gameWins / totalGames;   //Calculates the player win loss ratio.
 
         return "Player: " + playerName +
@@ -30,11 +32,9 @@ public class Player {
                 "with a win ratio of: " + winLossRatio + "% .";
     }
 
-
     // Writes the player save file.
     // Returns the username when file has been written successfully.
-    public String editGameSave(String userName) throws IOException {
-        String gameSaveFile = "src/GameSave.txt";
+    public static String editGameSave(String userName) throws IOException {
 
         try {
             FileWriter writer = new FileWriter(gameSaveFile, true);
@@ -53,8 +53,7 @@ public class Player {
 
     // Asks the player whether they have a save.
     // If yes, looks for the save. If no, asks whether they wish to create one.
-    public void doesGameSaveExist() throws FileNotFoundException {
-        String gameSaveFile = "src/GameSave.txt";
+    public static void doesGameSaveExist() throws FileNotFoundException {
 
         // Instantiating scanner to find user in gameSave.
         Scanner scanner = new Scanner(System.in);
@@ -92,13 +91,16 @@ public class Player {
                         // Create new user if answer equals yes. Else continue.
                         if (answer.equalsIgnoreCase("Yes")) {
                             answer = scanner.nextLine();
-                            //editGameSave(answer);
+                            editGameSave(answer);
                         }
                     }
                 }
                 gameSave.close();
 
             } catch (FileNotFoundException e) {
+                throw new RuntimeException(e);
+
+            } catch (IOException e) {
                 throw new RuntimeException(e);
             }
         }
