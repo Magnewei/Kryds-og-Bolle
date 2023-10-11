@@ -68,7 +68,21 @@ public class Board {
     //Adds each list to the winning Arraylist.
     // Then tracks whether a list has been filled, in which case the player/npc has won. Else prints tie.
     public String checkWinner() {
+        
+        /* Magic square board
+        List topRow = Arrays.asList(4, 9, 2);
+        List midRow = Arrays.asList(3, 5, 7);
+        List botRow = Arrays.asList(8, 1, 6);
 
+        //Winning columns of the board.
+        List leftCol = Arrays.asList(4, 3, 8);
+        List middleCol = Arrays.asList(9, 5, 1);
+        List rightCol = Arrays.asList(2, 7, 6);
+
+        //Winning across the board.
+        List cross1 = Arrays.asList(4, 5, 6);
+        List cross2 = Arrays.asList(2, 5, 6);
+         */
 
         //Winning rows of the board.
         List topRow = Arrays.asList(1, 2, 3);
@@ -76,13 +90,13 @@ public class Board {
         List botRow = Arrays.asList(7, 8, 9);
 
         //Winning columns of the board.
-        List leftCol = Arrays.asList(8, 3, 4);
-        List middleCol = Arrays.asList(1, 5, 9);
-        List rightCol = Arrays.asList(6, 7, 2);
+        List leftCol = Arrays.asList(1, 4, 7);
+        List middleCol = Arrays.asList(2, 5, 8);
+        List rightCol = Arrays.asList(3, 6, 9);
 
         //Winning across the board.
-        List cross1 = Arrays.asList(8, 5, 2);
-        List cross2 = Arrays.asList(4, 5, 6);
+        List cross1 = Arrays.asList(1, 5, 9);
+        List cross2 = Arrays.asList(3, 5, 7);
 
 
         //ArrayList to keep track of our lists.
