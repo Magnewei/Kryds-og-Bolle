@@ -68,7 +68,7 @@ public class Board {
     //Adds each list to the winning Arraylist.
     // Then tracks whether a list has been filled, in which case the player/npc has won. Else prints tie.
     public String checkWinner() {
-        
+
         /* Magic square board
         List topRow = Arrays.asList(4, 9, 2);
         List midRow = Arrays.asList(3, 5, 7);
